@@ -8,9 +8,14 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository repository;
+    private final MoskitService moskitService;
+    private final ProductInfoRepository productInfoRepository;
 
-    public OrderService(OrderRepository repository) {
+    public OrderService(OrderRepository repository, MoskitService moskitService,
+                        ProductInfoRepository productInfoRepository) {
         this.repository = repository;
+        this.moskitService = moskitService;
+        this.productInfoRepository = productInfoRepository;
     }
 
     public List<Order> getAll() {
@@ -18,6 +23,12 @@ public class OrderService {
     }
 
     public Order save(Order order) {
+        moskitService.enrichOrder(order);
+        productInfoRepository.findBySku(order.getModelo())
+                .ifPresent(info -> {
+                    order.setRastreador(info.getRastreador());
+                    order.setConfiguracao(info.getConfiguracao());
+                });
         return repository.save(order);
     }
 
