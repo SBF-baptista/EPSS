@@ -15,6 +15,8 @@ public class Order {
     private String rastreador;
     private String configuracao;
     private String status;
+    private Integer quantidade;
+    private String tipoVeiculo;
 
     // getters and setters
     public Long getId() { return id; }
@@ -29,4 +31,8 @@ public class Order {
     public void setConfiguracao(String configuracao) { this.configuracao = configuracao; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    public Integer getQuantidade() { return quantidade; }
+    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
+    public String getTipoVeiculo() { return tipoVeiculo; }
+    public void setTipoVeiculo(String tipoVeiculo) { this.tipoVeiculo = tipoVeiculo; }
 }
